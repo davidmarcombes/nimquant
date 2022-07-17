@@ -2,15 +2,16 @@ import std/times
 import std/math
 
 type 
-    YearMonthDay* = tuple
-        year: int
-        month: int
-        day: int                
+  YearMonthDay* = tuple#
+    ## A simple tuple to represent a date without the DateTime luggage
+    year: int
+    month: int
+    day: int                
 
 proc getOaDate*(year: int, 
                 month: int, 
                 day: int) : int {.noSideEffect.} =
- 
+  ## Converts a year, month, day date to an OA date (a.k.a. Microsoft Excel date)
   let serial = 
     int(( 1461 * ( year + 4800 + ( month - 14 ) div 12 ) ) div 4 +
     ( 367 * ( month - 2 - 12 * ( ( month - 14 ) div 12 ) ) ) div 12 -
@@ -24,10 +25,12 @@ proc getOaDate*(year: int,
     else: result = int(serial)
 
 proc getOaDate*(date: DateTime) : int {.noSideEffect.} =
-    result = getOaDate(date.year, 1, 1) + date.yearday
+  ## Converts a DateTime to ainto an OA date (a.k.a. Microsoft Excel date)
+  result = getOaDate(date.year, 1, 1) + date.yearday
 
 proc getOaDate*(date: YearMonthDay) : int {.noSideEffect.} =
-    result = getOaDate(date.year, date.month, date.day)
+  ## Converts a YearMonthDay to an OA date (a.k.a. Microsoft Excel date)
+  result = getOaDate(date.year, date.month, date.day)
 
 proc getOaDateTime*(year: int, 
                 month: int, 

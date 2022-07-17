@@ -10,7 +10,6 @@ proc testGetOaDate(year: int, month: int, day: int, serial: int) =
   let oaymd = getOaDate( (year, month, day) )
   assert oaymd == serial, fmt"got {oaymd} != {serial}"
 
-
   if year != 1900 and month != 2 and day != 29:
     let oad = getOaDate(dateTime(year, Month(month), day))
     assert oad == serial, fmt"got {oad} != {serial}"
